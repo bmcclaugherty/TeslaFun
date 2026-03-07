@@ -118,12 +118,9 @@ function gameOver() {
     gameOverScreen.classList.remove('hidden');
 }
 
-document.addEventListener('keydown', e => {
-    // Prevent default scrolling
-    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-        e.preventDefault();
-    }
 
+
+function changeDirection(dir) {
     if (isGameOver) return;
 
     const goingUp = dy === -1;
@@ -131,19 +128,33 @@ document.addEventListener('keydown', e => {
     const goingRight = dx === 1;
     const goingLeft = dx === -1;
 
-    if (e.key === 'ArrowLeft' && !goingRight) {
+    if (dir === 'left' && !goingRight) {
         dx = -1;
         dy = 0;
-    } else if (e.key === 'ArrowUp' && !goingDown) {
+    } else if (dir === 'up' && !goingDown) {
         dx = 0;
         dy = -1;
-    } else if (e.key === 'ArrowRight' && !goingLeft) {
+    } else if (dir === 'right' && !goingLeft) {
         dx = 1;
         dy = 0;
-    } else if (e.key === 'ArrowDown' && !goingUp) {
+    } else if (dir === 'down' && !goingUp) {
         dx = 0;
         dy = 1;
     }
+}
+
+// Add event listeners for touch controls
+document.querySelectorAll('.dir-btn').forEach(btn => {
+    btn.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Prevent default touch behavior like scrolling
+        changeDirection(btn.dataset.dir);
+    });
+
+    // Fallback for mouse clicks
+    btn.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        changeDirection(btn.dataset.dir);
+    });
 });
 
 startBtn.addEventListener('click', initGame);
