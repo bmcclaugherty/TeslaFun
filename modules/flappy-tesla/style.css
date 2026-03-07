@@ -1,0 +1,53 @@
+body {
+    background: #444; /* Darker background for game focus */
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.game-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    display: block;
+    background: linear-gradient(#00d1ff, #fff); /* Sky background */
+    width: 100%;
+    height: 100%;
+    touch-action: none; /* Prevent browser handling touch */
+}
+
+#ui-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    text-align: center;
+}
+
+#score {
+    font-family: 'Bungee', cursive;
+    font-size: 8rem;
+    color: white;
+    text-shadow: 4px 4px 0px rgba(0,0,0,0.3);
+    margin-bottom: 20px;
+}
+
+#start-msg {
+    font-family: 'Bungee', cursive;
+    font-size: 3rem;
+    color: var(--primary-color);
+    text-shadow: 3px 3px 0px white;
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}

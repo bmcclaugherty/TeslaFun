@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sudoku</title>
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="../../index.html" class="back-btn">Main Menu</a>
+
+    <div class="container">
+        <header>
+            <h1>Tesla Sudoku</h1>
+            <p id="timer">Time: 00:00</p>
+        </header>
+
+        <div id="sudoku-board">
+            <!-- Grid will be generated here -->
+        </div>
+
+        <div id="number-pad">
+            <button class="pad-btn" data-val="1">1</button>
+            <button class="pad-btn" data-val="2">2</button>
+            <button class="pad-btn" data-val="3">3</button>
+            <button class="pad-btn" data-val="4">4</button>
+            <button class="pad-btn" data-val="5">5</button>
+            <button class="pad-btn" data-val="6">6</button>
+            <button class="pad-btn" data-val="7">7</button>
+            <button class="pad-btn" data-val="8">8</button>
+            <button class="pad-btn" data-val="9">9</button>
+            <button class="pad-btn erase" data-val="0">X</button>
+        </div>
+
+        <div class="controls">
+            <button id="new-game-btn" class="control-btn">New Game</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

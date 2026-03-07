@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tesla Trivia</title>
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="../../index.html" class="back-btn">Main Menu</a>
+
+    <div class="container">
+        <header>
+            <h1>Tesla Trivia</h1>
+            <div id="score-display">Score: 0</div>
+        </header>
+
+        <div id="game-box">
+            <div id="question-container">
+                <h2 id="question">Loading question...</h2>
+            </div>
+            <div id="options-container" class="grid-container">
+                <!-- Options will be injected here -->
+            </div>
+            <div id="result-msg"></div>
+        </div>
+
+        <button id="next-btn" class="hidden">Next Question</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

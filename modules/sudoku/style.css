@@ -1,0 +1,103 @@
+body {
+    background-color: #111;
+}
+
+#sudoku-board {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    width: 90vw;
+    max-width: 600px;
+    aspect-ratio: 1/1;
+    margin: 20px auto;
+    border: 4px solid white;
+    background: white;
+    gap: 1px;
+}
+
+.cell {
+    background: #222;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cell:nth-child(3n) { border-right: 2px solid #555; }
+.cell:nth-child(9n) { border-right: none; }
+
+/* 3x3 Block boundaries */
+.cell:nth-child(n+19):nth-child(-n+27),
+.cell:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: 2px solid #555;
+}
+
+.cell.fixed {
+    background: #333;
+    color: #00d1ff;
+    cursor: default;
+}
+
+.cell.selected {
+    background: var(--primary-color) !important;
+    color: white;
+}
+
+.cell.wrong {
+    color: #e74c3c;
+}
+
+#number-pad {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    width: 90vw;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.pad-btn {
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 1.5rem;
+    font-family: 'Bungee', cursive;
+    cursor: pointer;
+}
+
+.pad-btn:active {
+    background: var(--accent-color);
+}
+
+.pad-btn.erase {
+    background: #e74c3c;
+}
+
+.controls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.control-btn {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-family: 'Bungee', cursive;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#timer {
+    font-family: 'Bungee', cursive;
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    text-align: center;
+    margin-bottom: 10px;
+}
