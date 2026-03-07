@@ -1,43 +1,43 @@
 const questions = [
     {
-        q: "In what year was Tesla Motors founded?",
-        options: ["2001", "2003", "2008", "2010"],
-        correct: 1
-    },
-    {
-        q: "What was Tesla's first production car?",
-        options: ["Model S", "Model X", "Roadster", "Model 3"],
+        q: "What is the capital of France?",
+        options: ["Berlin", "London", "Paris", "Rome"],
         correct: 2
     },
     {
-        q: "Which Tesla model has 'Falcon Wing' doors?",
-        options: ["Model 3", "Model X", "Cybertruck", "Model Y"],
+        q: "Which planet is known as the Red Planet?",
+        options: ["Venus", "Mars", "Jupiter", "Saturn"],
         correct: 1
     },
     {
-        q: "Who is the CEO of Tesla?",
-        options: ["Bill Gates", "Jeff Bezos", "Elon Musk", "Tim Cook"],
+        q: "Who painted the Mona Lisa?",
+        options: ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Michelangelo"],
         correct: 2
     },
     {
-        q: "What is the name of Tesla's self-driving software?",
-        options: ["Autopilot", "SuperDrive", "SafeDrive", "AutoTravel"],
+        q: "What is the largest ocean on Earth?",
+        options: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+        correct: 3
+    },
+    {
+        q: "In what year did the Titanic sink?",
+        options: ["1912", "1905", "1915", "1920"],
         correct: 0
     },
     {
-        q: "Which model is known as the 'most affordable' Tesla?",
-        options: ["Model S", "Model X", "Model 3", "Roadster"],
+        q: "What is the chemical symbol for gold?",
+        options: ["Go", "Gd", "Au", "Ag"],
         correct: 2
     },
     {
-        q: "What is the Cybertruck's body material made of?",
-        options: ["Aluminum", "Carbon Fiber", "Stainless Steel", "Fiberglass"],
+        q: "Which animal is known as the King of the Jungle?",
+        options: ["Tiger", "Elephant", "Lion", "Gorilla"],
         correct: 2
     },
     {
-        q: "Where is Tesla's 'Gigafactory Texas' located?",
-        options: ["Dallas", "Austin", "Houston", "San Antonio"],
-        correct: 1
+        q: "What is the hardest natural substance on Earth?",
+        options: ["Gold", "Iron", "Diamond", "Quartz"],
+        correct: 2
     }
 ];
 
