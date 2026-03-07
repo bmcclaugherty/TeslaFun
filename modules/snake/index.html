@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="../../index.html" class="back-btn">Main Menu</a>
+
+    <div class="container">
+        <header>
+            <h1>Snake Game</h1>
+            <div id="score-display">Score: 0</div>
+        </header>
+
+        <div id="game-container">
+            <canvas id="game-canvas" width="400" height="400"></canvas>
+
+            <div id="game-over-screen" class="hidden overlay">
+                <h2>Game Over!</h2>
+                <p id="final-score">Score: 0</p>
+                <button id="restart-btn" class="btn">Play Again</button>
+            </div>
+
+            <div id="start-screen" class="overlay">
+                <h2>Ready?</h2>
+                <p>Use arrow keys to move</p>
+                <button id="start-btn" class="btn">Start Game</button>
+            </div>
+        </div>
+
+        <div class="controls-info">
+            <p>Use arrow keys to control the snake</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
