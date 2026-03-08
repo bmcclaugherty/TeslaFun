@@ -16,6 +16,7 @@ body {
 }
 
 .cell {
+    box-sizing: border-box;
     background: #222;
     color: white;
     display: flex;
@@ -26,13 +27,13 @@ body {
     cursor: pointer;
 }
 
-.cell:nth-child(3n) { border-right: 2px solid #555; }
+.cell:nth-child(3n) { border-right: 3px solid #888; }
 .cell:nth-child(9n) { border-right: none; }
 
 /* 3x3 Block boundaries */
 .cell:nth-child(n+19):nth-child(-n+27),
 .cell:nth-child(n+46):nth-child(-n+54) {
-    border-bottom: 2px solid #555;
+    border-bottom: 3px solid #888;
 }
 
 .cell.fixed {

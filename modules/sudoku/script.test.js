@@ -110,54 +110,49 @@ describe('Sudoku', () => {
     });
 
     test('entering wrong number adds wrong class', () => {
-        jest.spyOn(Math, 'random').mockReturnValue(0);
         newGameBtn.click();
 
         const emptyCell = Array.from(boardEl.children).find(c => !c.classList.contains('fixed'));
+        const index = parseInt(emptyCell.dataset.index);
+        const correctVal = window.currentSolution[index];
+        const wrongVal = correctVal === 9 ? 1 : correctVal + 1;
+
         emptyCell.click();
 
-        const btn9 = Array.from(numPad.children).find(b => b.dataset.val === '9');
-        btn9.click();
+        const btnWrong = Array.from(numPad.children).find(b => b.dataset.val === String(wrongVal));
+        btnWrong.click();
 
         expect(emptyCell.classList.contains('wrong')).toBe(true);
     });
 
     test('entering correct number removes wrong class', () => {
-        jest.spyOn(Math, 'random').mockReturnValue(0);
         newGameBtn.click();
 
         const emptyCell = Array.from(boardEl.children).find(c => !c.classList.contains('fixed'));
+        const index = parseInt(emptyCell.dataset.index);
+        const correctVal = window.currentSolution[index];
+        const wrongVal = correctVal === 9 ? 1 : correctVal + 1;
+
         emptyCell.click();
 
-        const btn9 = Array.from(numPad.children).find(b => b.dataset.val === '9');
-        btn9.click();
+        const btnWrong = Array.from(numPad.children).find(b => b.dataset.val === String(wrongVal));
+        btnWrong.click();
         expect(emptyCell.classList.contains('wrong')).toBe(true);
 
-        const btn4 = Array.from(numPad.children).find(b => b.dataset.val === '4');
-        btn4.click();
+        const btnCorrect = Array.from(numPad.children).find(b => b.dataset.val === String(correctVal));
+        btnCorrect.click();
         expect(emptyCell.classList.contains('wrong')).toBe(false);
     });
 
     test('checkWin is called and triggers alert when game is complete', () => {
-        jest.spyOn(Math, 'random').mockReturnValue(0);
         newGameBtn.click();
 
-        const solution0 = [
-            5, 3, 4, 6, 7, 8, 9, 1, 2,
-            6, 7, 2, 1, 9, 5, 3, 4, 8,
-            1, 9, 8, 3, 4, 2, 5, 6, 7,
-            8, 5, 9, 7, 6, 1, 4, 2, 3,
-            4, 2, 6, 8, 5, 3, 7, 9, 1,
-            7, 1, 3, 9, 2, 4, 8, 5, 6,
-            9, 6, 1, 5, 3, 7, 2, 8, 4,
-            2, 8, 7, 4, 1, 9, 6, 3, 5,
-            3, 4, 5, 2, 8, 6, 1, 7, 9
-        ];
+        const currentSolution = window.currentSolution;
 
         Array.from(boardEl.children).forEach((cell, index) => {
             if (!cell.classList.contains('fixed')) {
                 cell.click();
-                const btn = Array.from(numPad.children).find(b => b.dataset.val === String(solution0[index]));
+                const btn = Array.from(numPad.children).find(b => b.dataset.val === String(currentSolution[index]));
                 btn.click();
             }
         });
