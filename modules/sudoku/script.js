@@ -9,61 +9,150 @@ let selectedCell = null;
 let startTime;
 let timerInterval;
 
-const puzzles = [
-    [
-        5, 3, 0, 0, 7, 0, 0, 0, 0,
-        6, 0, 0, 1, 9, 5, 0, 0, 0,
-        0, 9, 8, 0, 0, 0, 0, 6, 0,
-        8, 0, 0, 0, 6, 0, 0, 0, 3,
-        4, 0, 0, 8, 0, 3, 0, 0, 1,
-        7, 0, 0, 0, 2, 0, 0, 0, 6,
-        0, 6, 0, 0, 0, 0, 2, 8, 0,
-        0, 0, 0, 4, 1, 9, 0, 0, 5,
-        0, 0, 0, 0, 8, 0, 0, 7, 9
-    ],
-    [
-        0, 0, 0, 2, 6, 0, 7, 0, 1,
-        6, 8, 0, 0, 7, 0, 0, 9, 0,
-        1, 9, 0, 0, 0, 4, 5, 0, 0,
-        8, 2, 0, 1, 0, 0, 0, 4, 0,
-        0, 0, 4, 6, 0, 2, 9, 0, 0,
-        0, 5, 0, 0, 0, 3, 0, 2, 8,
-        0, 0, 9, 3, 0, 0, 0, 7, 4,
-        0, 4, 0, 0, 5, 0, 0, 3, 6,
-        7, 0, 3, 0, 1, 8, 0, 0, 0
-    ]
-];
+// Sudoku generation functions
+function fillDiagonal(board) {
+    for (let i = 0; i < 9; i += 3) {
+        let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        nums.sort(() => Math.random() - 0.5);
+        let idx = 0;
+        for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+                board[(i + r) * 9 + (i + c)] = nums[idx++];
+            }
+        }
+    }
+}
 
-// Simplified solutions (for real app, we'd use a solver)
-const solutions = [
-    [
-        5, 3, 4, 6, 7, 8, 9, 1, 2,
-        6, 7, 2, 1, 9, 5, 3, 4, 8,
-        1, 9, 8, 3, 4, 2, 5, 6, 7,
-        8, 5, 9, 7, 6, 1, 4, 2, 3,
-        4, 2, 6, 8, 5, 3, 7, 9, 1,
-        7, 1, 3, 9, 2, 4, 8, 5, 6,
-        9, 6, 1, 5, 3, 7, 2, 8, 4,
-        2, 8, 7, 4, 1, 9, 6, 3, 5,
-        3, 4, 5, 2, 8, 6, 1, 7, 9
-    ],
-    [
-        4, 3, 5, 2, 6, 9, 7, 8, 1,
-        6, 8, 2, 5, 7, 1, 4, 9, 3,
-        1, 9, 7, 8, 3, 4, 5, 6, 2,
-        8, 2, 6, 1, 9, 5, 3, 4, 7,
-        3, 7, 4, 6, 8, 2, 9, 1, 5,
-        9, 5, 1, 7, 4, 3, 6, 2, 8,
-        5, 1, 9, 3, 2, 6, 8, 7, 4,
-        2, 4, 8, 9, 5, 7, 1, 3, 6,
-        7, 6, 3, 4, 1, 8, 2, 5, 9
-    ]
-];
+function fillBoard(board) {
+    let emptyIdx = board.indexOf(0);
+    if (emptyIdx === -1) return true;
+    let row = Math.floor(emptyIdx / 9);
+    let col = emptyIdx % 9;
+    let startRow = Math.floor(row / 3) * 3;
+    let startCol = Math.floor(col / 3) * 3;
+
+    let used = new Array(10).fill(false);
+    for (let j = 0; j < 9; j++) {
+        used[board[row * 9 + j]] = true;
+        used[board[j * 9 + col]] = true;
+    }
+    for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 3; c++) {
+            used[board[(startRow + r) * 9 + (startCol + c)]] = true;
+        }
+    }
+
+    let nums = [];
+    for (let v = 1; v <= 9; v++) {
+        if (!used[v]) nums.push(v);
+    }
+    nums.sort(() => Math.random() - 0.5);
+
+    for (let num of nums) {
+        board[emptyIdx] = num;
+        if (fillBoard(board)) return true;
+        board[emptyIdx] = 0;
+    }
+    return false;
+}
+
+function solveMRV(board, count) {
+    let minIdx = -1;
+    let minVals = null;
+    let minLen = 10;
+
+    for (let i = 0; i < 81; i++) {
+        if (board[i] === 0) {
+            let row = Math.floor(i / 9);
+            let col = i % 9;
+            let startRow = Math.floor(row / 3) * 3;
+            let startCol = Math.floor(col / 3) * 3;
+
+            let used = new Array(10).fill(false);
+            for (let j = 0; j < 9; j++) {
+                used[board[row * 9 + j]] = true;
+                used[board[j * 9 + col]] = true;
+            }
+            for (let r = 0; r < 3; r++) {
+                for (let c = 0; c < 3; c++) {
+                    used[board[(startRow + r) * 9 + (startCol + c)]] = true;
+                }
+            }
+
+            let vals = [];
+            for (let v = 1; v <= 9; v++) {
+                if (!used[v]) vals.push(v);
+            }
+
+            if (vals.length === 0) return; // Unsolvable branch
+            if (vals.length < minLen) {
+                minLen = vals.length;
+                minIdx = i;
+                minVals = vals;
+            }
+        }
+    }
+
+    if (minIdx === -1) {
+        count.n++;
+        return;
+    }
+
+    for (let num of minVals) {
+        board[minIdx] = num;
+        solveMRV(board, count);
+        if (count.n > 1) {
+            board[minIdx] = 0;
+            return;
+        }
+        board[minIdx] = 0;
+    }
+}
+
+function generateSudoku(difficulty) {
+    let board = new Array(81).fill(0);
+    fillDiagonal(board);
+    fillBoard(board);
+
+    let solution = [...board];
+
+    let cellsToRemove = 30; // easy
+    if (difficulty === 'medium') cellsToRemove = 45;
+    if (difficulty === 'hard') cellsToRemove = 55;
+
+    let indices = Array.from({length: 81}, (_, i) => i);
+    indices.sort(() => Math.random() - 0.5);
+
+    let removed = 0;
+    for (let i = 0; i < 81; i++) {
+        if (removed >= cellsToRemove) break;
+        let idx = indices[i];
+        let backup = board[idx];
+        board[idx] = 0;
+
+        let count = { n: 0 };
+        solveMRV([...board], count);
+
+        if (count.n !== 1) {
+            board[idx] = backup; // Cannot remove
+        } else {
+            removed++;
+        }
+    }
+
+    return { board, solution };
+}
 
 function initGame() {
-    const pIdx = Math.floor(Math.random() * puzzles.length);
-    board = [...puzzles[pIdx]];
-    solution = [...solutions[pIdx]];
+    const diffSelect = document.getElementById('difficulty');
+    const difficulty = diffSelect ? diffSelect.value : 'easy';
+
+    const generated = generateSudoku(difficulty);
+    board = generated.board;
+    solution = generated.solution;
+
+    // Store globally for tests if needed
+    window.currentSolution = solution;
     
     renderBoard();
     startTimer();
